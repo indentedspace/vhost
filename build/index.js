@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var ASTERISK_REGEXP = /\*/g;
 var ASTERISK_REPLACE = "([^.]+)";
@@ -33,9 +22,9 @@ var vhost = function (hostname, handle) {
         if (!vhost) {
             return next();
         }
-        var vhostReq = __assign(__assign({}, req), { vhost: vhost });
+        req.vhost = vhost;
         // handle
-        handle(vhostReq, res, next);
+        handle(req, res, next);
     };
 };
 var hostnameof = function (req) {

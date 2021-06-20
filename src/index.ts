@@ -47,10 +47,10 @@ const vhost = (
       return next();
     }
 
-    let vhostReq = { ...req, vhost } as VHostRequest;
+    (req as VHostRequest).vhost = vhost;
 
     // handle
-    handle(vhostReq, res, next);
+    handle(req as VHostRequest, res, next);
   };
 };
 
