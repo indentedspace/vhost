@@ -25,8 +25,9 @@
   "files": [
     "LICENSE",
     "HISTORY.md",
-    "build/index.js"
+    "index.js"
   ],
+  "typings": "build/index.d.ts",
   "engines": {
     "node": ">= 0.8.0"
   },
