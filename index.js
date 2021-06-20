@@ -1,3 +1,1 @@
-import vhost from "./build"
-
-export default vhost
+module.exports = require("./build")
