@@ -1,18 +1,18 @@
 import express from "express";
 
-interface VHostData {
+export interface VHostData {
   host: string;
   hostname: string;
   length: number;
   [key: number]: string;
 }
 
-interface VHostHandler {
-  (
-    req: express.Request<Record<string, string>, any, { vhost: VHostData }>,
-    res: express.Response,
-    next: express.NextFunction
-  ): void;
+export interface VHostRequest extends express.Request {
+  vhost: VHostData;
+}
+
+export interface VHostHandler {
+  (req: VHostRequest, res: express.Response, next: express.NextFunction): void;
 }
 
 const ASTERISK_REGEXP = /\*/g;
@@ -41,17 +41,16 @@ const vhost = (
   const regexp = hostregexp(hostname);
 
   return (req, res, next) => {
-    const vhostdata = vhostof(req, regexp);
+    const vhost = vhostof(req, regexp);
 
-    if (!vhostdata) {
+    if (!vhost) {
       return next();
     }
 
-    // populate
-    req.body.vhost = vhostdata;
+    let vhostReq = { ...req, vhost } as VHostRequest;
 
     // handle
-    handle(req, res, next);
+    handle(vhostReq, res, next);
   };
 };
 
