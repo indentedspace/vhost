@@ -19,3 +19,5 @@ declare function vhost(
   hostname: string | RegExp,
   handler: vhost.Handler
 ): express.Handler;
+
+export = vhost;
